@@ -29,7 +29,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Authenticate Clasp
-        run: echo ${{secrets.CLASPRC}} >> ~/.clasprc.json
+        run: 'echo "$CLASPRC" > ~/.clasprc.json'
+        shell: bash
+        env:
+          CLASPRC: ${{ secrets.CLASPRC }}
       - name: Deploy Tiller
         working-directory: ./tiller
         run: npx clasp push
