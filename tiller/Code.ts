@@ -1,4 +1,4 @@
-import { HEADER } from './Constants';
+const HEADER = ['Date', 'Assets', 'Liabilities', 'Net Worth', 'Delta'];
 
 export function LAST(data: unknown): unknown {
   if (!Array.isArray(data)) return data;

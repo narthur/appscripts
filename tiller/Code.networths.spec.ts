@@ -1,5 +1,7 @@
 import { NETWORTHS } from './Code';
-import { HEADER } from './Constants';
+
+// Duplicated because Google Apps Script does not support ES6 modules
+const HEADER = ['Date', 'Assets', 'Liabilities', 'Net Worth', 'Delta'];
 
 function assertEquals(a: unknown, b: unknown): void {
   expect(a).toEqual(b);
