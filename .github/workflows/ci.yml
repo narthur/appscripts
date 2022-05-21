@@ -35,4 +35,4 @@ jobs:
           CLASPRC: ${{ secrets.CLASPRC }}
       - name: Deploy Tiller
         working-directory: ./tiller
-        run: npx clasp push
+        run: npx clasp push -f
