@@ -1,6 +1,6 @@
 # appscripts
 
-To deploy a script:
+Scripts are deployed automatically on push to GitHub main. To deploy a script manually:
 
 ```bash
 cd /tiller

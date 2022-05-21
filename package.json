@@ -3,6 +3,7 @@
     "test": "npx jest --watch"
   },
   "dependencies": {
+    "@google/clasp": "^2.4.1",
     "jest": "^28.1.0"
   },
   "devDependencies": {
