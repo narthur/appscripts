@@ -1,9 +1,9 @@
+import { HEADER } from './Constants';
+
 export function LAST(data: unknown): unknown {
   if (!Array.isArray(data)) return data;
   return data[data.length - 1];
 }
-
-export const HEADER = ['Date', 'Assets', 'Liabilities', 'Net Worth', 'Delta'];
 
 function findLastIndex(
   date: Date,

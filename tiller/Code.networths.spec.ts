@@ -1,5 +1,5 @@
 import { NETWORTHS } from './Code';
-import { HEADER } from './Code';
+import { HEADER } from './Constants';
 
 function assertEquals(a: unknown, b: unknown): void {
   expect(a).toEqual(b);
