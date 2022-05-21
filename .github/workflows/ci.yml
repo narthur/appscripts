@@ -28,6 +28,9 @@ jobs:
             ${{ runner.os }}-node-
       - name: Install dependencies
         run: npm ci
+      - name: Authenticate Clasp
+        working-directory: ./tiller
+        run: echo ${{secrets.CLASPRC}} >> ./.clasprc.json && npx clasp login --creds .clasprc.json
       - name: Deploy Tiller
         working-directory: ./tiller
         run: npx clasp push
