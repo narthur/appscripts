@@ -19,6 +19,10 @@
 **/*.spec.gs
 **/*.test.gs
 
+# ignore config files
+babel.config.js
+rollup.config.js
+
 # ignore even valid files if in…
 .git/**
 node_modules/**
