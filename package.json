@@ -1,7 +1,7 @@
 {
   "scripts": {
     "build": "cd tiller && rollup --config",
-    "deploy": "cd tiller && clasp push",
+    "deploy": "cd tiller && clasp push -f",
     "push": "npm run deploy",
     "test": "npx jest --watch",
     "lint": "eslint"
