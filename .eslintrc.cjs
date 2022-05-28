@@ -17,7 +17,7 @@ module.exports = {
     },
     overrides: [
         {
-            files: ['*/build/**/*.js'],
+            files: ['projects/*/build/**/*.js'],
             rules: {
                 "no-unused-vars": 0,
             }

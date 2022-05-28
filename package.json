@@ -1,8 +1,11 @@
 {
   "scripts": {
-    "build": "cd tiller && rollup --config",
-    "deploy": "cd tiller && clasp push -f",
-    "push": "npm run deploy",
+    "build:tiller": "cd projects/tiller && rollup --config",
+    "deploy:tiller": "cd projects/tiller && clasp push -f",
+    "build:forecasts": "cd projects/forecasts && rollup --config",
+    "deploy:forecasts": "cd projects/forecasts && clasp push -f",
+    "build": "npm run build:tiller && npm run build:forecasts",
+    "deploy": "npm run deploy:tiller && npm run deploy:forecasts",
     "test": "npx jest --watch",
     "lint": "eslint"
   },
