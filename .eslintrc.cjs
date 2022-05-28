@@ -39,6 +39,7 @@ module.exports = {
                 "@typescript-eslint/explicit-function-return-type": [2, {
                     "allowExpressions": true
                 }],
+                "@typescript-eslint/no-unused-vars": 2,
             }
         }
     ]

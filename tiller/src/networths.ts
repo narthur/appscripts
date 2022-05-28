@@ -1,21 +1,6 @@
 import { HEADER } from './constants';
-import { findLastValue } from './lib/findLastValue';
-import { findDelta } from './lib/findDelta';
-
-function findNetDelta(
-  date: Date,
-  assets: AssetRow[],
-  liabilities: LiabilityRow[]
-): number {
-  return findDelta(date, assets) - findDelta(date, liabilities);
-}
-
-function findDateSum(date: Date, rows: DataRow[]): number {
-  return Array.from(
-    { length: rows.length ? rows[0].length : 0 },
-    (_, i: number) => findLastValue(date, rows, i + 1)
-  ).reduce((a: number, b: number) => a + b, 0);
-}
+import { makeNetWorthRow } from './lib/makeNetworthRow';
+import { getDates } from './lib/getDates';
 
 function isDataRow(row: unknown[]): row is DataRow {
   if (row.length < 2) return false;
@@ -38,23 +23,8 @@ export function NETWORTHS(
 ): [typeof HEADER, ...NetWorthRow[]] {
   const a: AssetRow[] = assets.filter(isAssetRow);
   const l: LiabilityRow[] = liabilities.filter(isLiabilityRow);
-
-  const assetDates = a.map((r) => r[0]);
-  const liabilityDates = l.map((r) => r[0]);
-  const times = [...assetDates, ...liabilityDates]
-    .map((d) => d.getTime())
-    .sort();
-  const uniqueTimes = Array.from(new Set(times));
-
-  const rows = uniqueTimes.map((time): NetWorthRow => {
-    const date = new Date(time);
-    const asset = findDateSum(date, a);
-    const liability = findDateSum(date, l);
-    const netWorth = asset - liability;
-    const delta = findNetDelta(date, a, l);
-
-    return [date, asset, liability ? -liability : 0, netWorth, delta];
-  });
+  const dates = getDates(a, l);
+  const rows = dates.map((d) => makeNetWorthRow(d, a, l));
 
   return [HEADER, ...rows];
 }
