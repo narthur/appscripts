@@ -21,7 +21,7 @@ function isDataRow(row: unknown[]): row is DataRow {
   if (row.length < 2) return false;
   if (!(row[0] instanceof Date)) return false;
 
-  return row.slice(1).every((v) => v === '' || !isNaN(parseInt(String(v))));
+  return row.slice(1).every((v) => v === '' || typeof v === 'number');
 }
 
 function isAssetRow(row: unknown[]): row is AssetRow {
@@ -41,13 +41,13 @@ export function NETWORTHS(
 
   const assetDates = a.map((r) => r[0]);
   const liabilityDates = l.map((r) => r[0]);
-  const dates = [...assetDates, ...liabilityDates].filter(
-    (date, i, self) =>
-      self.findIndex((d) => d.getTime() === date.getTime()) === i
-  );
-  dates.sort((a, b) => a.getTime() - b.getTime());
+  const times = [...assetDates, ...liabilityDates]
+    .map((d) => d.getTime())
+    .sort();
+  const uniqueTimes = Array.from(new Set(times));
 
-  const rows = dates.map((date): NetWorthRow => {
+  const rows = uniqueTimes.map((time): NetWorthRow => {
+    const date = new Date(time);
     const asset = findDateSum(date, a);
     const liability = findDateSum(date, l);
     const netWorth = asset - liability;
