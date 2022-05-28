@@ -15,7 +15,7 @@ jobs:
         run: npm ci
       - name: Run tests
         run: npx jest
-  deploy_tiller:
+  deploy:
     runs-on: ubuntu-latest
     if: success() && github.ref == 'refs/heads/main'
     steps:
@@ -33,6 +33,7 @@ jobs:
         shell: bash
         env:
           CLASPRC: ${{ secrets.CLASPRC }}
-      - name: Deploy Tiller
-        working-directory: ./tiller
-        run: npx clasp push -f
+      - name: Build
+        run: npm run build
+      - name: Deploy
+        run: npm run deploy

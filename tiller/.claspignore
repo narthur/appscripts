@@ -8,6 +8,9 @@
 !**/*.ts
 !**/*.html
 
+# and our transpiled code
+!build/*.js
+
 # ignore test files
 **/*.spec.ts
 **/*.test.ts

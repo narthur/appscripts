@@ -1,4 +1,4 @@
-import { NETWORTHS } from './Code';
+import { NETWORTHS } from './index';
 
 // Duplicated because Google Apps Script does not support ES6 modules
 const HEADER = ['Date', 'Assets', 'Liabilities', 'Net Worth', 'Delta'];

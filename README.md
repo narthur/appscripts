@@ -9,8 +9,8 @@ I can use `npx clasp push --watch` to watch for changes and automatically deploy
 Scripts are deployed automatically on push to GitHub main. To deploy a script manually:
 
 ```bash
-cd /tiller
-clasp push -f
+npm run build
+npm run deploy
 ```
 
 ## CI

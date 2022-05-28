@@ -1,21 +1,43 @@
 module.exports = {
     root: true,
-    parser: '@typescript-eslint/parser',
     parserOptions: {
-        project: './tsconfig.json',
+        sourceType: 'module',
+        ecmaVersion: 2017,
     },
-    plugins: [
-        '@typescript-eslint',
-    ],
     extends: [
         'eslint:recommended',
-        'plugin:@typescript-eslint/recommended',
-        "plugin:@typescript-eslint/recommended-requiring-type-checking"
     ],
     rules: {
-        "@typescript-eslint/explicit-function-return-type": [2, {
-            "allowExpressions": true
-        }],
         "no-console": 1
-    }
+    },
+    env: {
+        node: true,
+    },
+    overrides: [
+        {
+            files: ['*/build/**/*.js'],
+            rules: {
+                "no-unused-vars": 0,
+            }
+        },
+        {
+            files: ['*/src/**/*.ts'],
+            parser: '@typescript-eslint/parser',
+            parserOptions: {
+                project: './tsconfig.json',
+            },
+            extends: [
+                'plugin:@typescript-eslint/recommended',
+                "plugin:@typescript-eslint/recommended-requiring-type-checking"
+            ],
+            plugins: [
+                '@typescript-eslint',
+            ],
+            rules: {
+                "@typescript-eslint/explicit-function-return-type": [2, {
+                    "allowExpressions": true
+                }],
+            }
+        }
+    ]
 };
