@@ -2,12 +2,22 @@ export function getDates(
   assets: AssetRow[],
   liabilities: LiabilityRow[]
 ): Date[] {
+  const millisecondsPerDay = 24 * 60 * 60 * 1000;
   const assetDates = assets.map((r) => r[0]);
   const liabilityDates = liabilities.map((r) => r[0]);
   const times = [...assetDates, ...liabilityDates]
     .map((d) => d.getTime())
     .sort();
-  const uniqueTimes = Array.from(new Set(times));
 
-  return uniqueTimes.map((t) => new Date(t));
+  if (times.length === 0) {
+    return [];
+  }
+
+  const startTime = Math.min(...times);
+  const endTime = Math.max(...times) + 1;
+
+  return Array.from(
+    new Array(Math.ceil((endTime - startTime) / millisecondsPerDay)),
+    (_, i) => new Date(startTime + i * millisecondsPerDay)
+  );
 }
