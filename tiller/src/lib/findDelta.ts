@@ -1,5 +1,6 @@
 import { findLastIndex } from './findLastIndex';
 import { findLastValue } from './findLastValue';
+import { MILLISECONDS_IN_A_DAY } from '../constants';
 
 export function findDelta(date: Date, data: DataRow[]): number {
   return Array.from(
@@ -16,8 +17,9 @@ export function findDelta(date: Date, data: DataRow[]): number {
 
       if (isInit) return 0;
 
-      const valAfter = findLastValue(data[rowIndex][0], data, cellIndex);
-      const valBefore = findLastValue(data[rowIndex - 1][0], data, cellIndex);
+      const yesterday = new Date(date.getTime() - MILLISECONDS_IN_A_DAY);
+      const valAfter = findLastValue(date, data, cellIndex);
+      const valBefore = findLastValue(yesterday, data, cellIndex);
 
       return valAfter - valBefore;
     }

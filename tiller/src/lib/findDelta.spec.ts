@@ -55,7 +55,7 @@ describe('findDelta', () => {
 
     const delta = findDelta(new Date('2019-01-03'), data);
 
-    expect(delta).toEqual(1);
+    expect(delta).toEqual(0);
   });
 
   it('handles empty data', () => {

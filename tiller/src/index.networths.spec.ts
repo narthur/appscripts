@@ -1,19 +1,5 @@
 import { NETWORTHS } from './index';
 import { HEADER } from './constants';
-import liabilities from './data/liabilities.json';
-
-function parseJsonRows(rows: string[][]): DataRow[] {
-  return rows.map(
-    (r: string[]): DataRow => [
-      new Date(r[0]),
-      ...r
-        .slice(1)
-        .map((c: string): '' | number =>
-          c === '' ? '' : Number(c.replace(/[^0-9.-]+/g, ''))
-        )
-    ]
-  );
-}
 
 function assertNetWorths({
   assets,
@@ -326,27 +312,16 @@ describe('Tiller', () => {
     ]);
   });
 
-  it('produces consistent results with test data', () => {
-    const l = parseJsonRows(liabilities as string[][]);
+  it('handles liabilities changing and then not changing', () => {
+    const result = NETWORTHS(
+      [],
+      [
+        [new Date('4/1/22'), 2],
+        [new Date('4/2/22'), 1],
+        [new Date('4/4/22'), 1]
+      ]
+    );
 
-    const result = NETWORTHS([], l);
-
-    const rows: NetWorthRow[] = result.slice(1) as NetWorthRow[];
-
-    rows.forEach((r, i) => {
-      if (i === 0) return false;
-      const prev = rows[i - 1];
-      const prevNetWorth = prev[3];
-      const netWorth = r[3];
-      const delta = r[4];
-      const expectedDelta = netWorth - prevNetWorth;
-
-      if (delta - expectedDelta >= 0.01) {
-        console.log(expectedDelta, delta);
-        console.log({ [i - 1]: prev, [i]: r });
-      }
-
-      expect(delta - expectedDelta).toBeLessThan(0.01);
-    });
+    expect(result[3][4]).toEqual(0);
   });
 });
