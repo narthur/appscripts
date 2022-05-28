@@ -7,8 +7,10 @@ module.exports = {
     extends: [
         'eslint:recommended',
     ],
+    plugins: ["prettier"],
     rules: {
-        "no-console": 1
+        "no-console": 1,
+        "prettier/prettier": "error"
     },
     env: {
         node: true,

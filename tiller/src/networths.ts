@@ -1,58 +1,6 @@
 import { HEADER } from './constants';
-
-function findLastIndex(
-  date: Date,
-  rows: DataRow[],
-  index: number,
-  predicate: (row: unknown[]) => boolean = () => true
-): number {
-  const reversed = [...rows];
-  reversed.reverse();
-  const i = reversed.findIndex((r) => {
-    if (r[0] > date) return false;
-    return predicate ? predicate(r) : true;
-  });
-
-  return i === -1 ? -1 : rows.length - i - 1;
-}
-
-function findLastValue(date: Date, rows: DataRow[], index: number): number {
-  if (index < 1) return 0;
-
-  const i = findLastIndex(
-    date,
-    rows,
-    index,
-    (r) => typeof r[index] === 'number'
-  );
-
-  if (i === -1) return 0;
-
-  return rows[i][index] as number;
-}
-
-function findDelta(date: Date, data: DataRow[]): number {
-  return Array.from(
-    { length: data.length ? data[0].length - 1 : 0 },
-    (v, i) => {
-      const cellIndex = i + 1;
-      const rowIndex = findLastIndex(date, data, cellIndex);
-
-      if (rowIndex < 1) return 0;
-
-      const isInit = data
-        .slice(0, rowIndex)
-        .every((r: unknown[]) => r[cellIndex] === '');
-
-      if (isInit) return 0;
-
-      const valAfter = findLastValue(data[rowIndex][0], data, cellIndex);
-      const valBefore = findLastValue(data[rowIndex - 1][0], data, cellIndex);
-
-      return valAfter - valBefore;
-    }
-  ).reduce((a, b) => a + b, 0);
-}
+import { findLastValue } from './lib/findLastValue';
+import { findDelta } from './lib/findDelta';
 
 function findNetDelta(
   date: Date,
