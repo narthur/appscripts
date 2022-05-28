@@ -3,11 +3,7 @@ export function getDates(
   liabilities: LiabilityRow[]
 ): Date[] {
   const millisecondsPerDay = 24 * 60 * 60 * 1000;
-  const assetDates = assets.map((r) => r[0]);
-  const liabilityDates = liabilities.map((r) => r[0]);
-  const times = [...assetDates, ...liabilityDates]
-    .map((d) => d.getTime())
-    .sort();
+  const times = [...assets, ...liabilities].map((r) => r[0].getTime());
 
   if (times.length === 0) {
     return [];
