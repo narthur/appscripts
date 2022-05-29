@@ -1,21 +1,7 @@
+import { parseDate } from './lib/parseDate';
+
 const rand = function <T>(list: T[]): T {
   return list[Math.floor(Math.random() * list.length)];
-};
-
-const toDate = function (val: unknown): Date {
-  if (val instanceof Date) return val;
-
-  if (typeof val === 'string') {
-    const date = new Date(val);
-    if (date.toString() !== 'Invalid Date') return date;
-  }
-
-  if (typeof val === 'number') {
-    const date = new Date(val * 24 * 60 * 60 * 1000);
-    if (date.toString() !== 'Invalid Date') return date;
-  }
-
-  throw new Error(`Unable to parse date`);
 };
 
 export function SIMULATE(
@@ -29,7 +15,7 @@ export function SIMULATE(
     .map((i) => i[0])
     .filter((i): i is number => typeof i === 'number');
   const weeklyInterest = yearlyInterest / 52;
-  const start = toDate(startDate);
+  const start = parseDate(startDate);
 
   function calculateScenario(): Date {
     const limit = 200000;
