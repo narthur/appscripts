@@ -1,11 +1,13 @@
 {
   "scripts": {
-    "build:tiller": "cd projects/tiller && rollup --config",
-    "deploy:tiller": "cd projects/tiller && clasp push -f",
-    "build:forecasts": "cd projects/forecasts && rollup --config",
-    "deploy:forecasts": "cd projects/forecasts && clasp push -f",
-    "build": "npm run build:tiller && npm run build:forecasts",
-    "deploy": "npm run deploy:tiller && npm run deploy:forecasts",
+    "build:tiller": "cd projects/tiller && npx rollup --config",
+    "deploy:tiller": "cd projects/tiller && npx clasp push -f",
+    "build:forecasts": "cd projects/forecasts && npx rollup --config",
+    "deploy:forecasts": "cd projects/forecasts && npx clasp push -f",
+    "build:bmdata": "cd projects/bmdata && npx rollup --config",
+    "deploy:bmdata": "cd projects/bmdata && npx clasp push -f",
+    "build": "npm run build:tiller && npm run build:forecasts && npm run build:bmdata",
+    "deploy": "npm run deploy:tiller && npm run deploy:forecasts && npm run deploy:bmdata",
     "test": "npx jest --watch",
     "lint": "eslint"
   },
@@ -17,6 +19,9 @@
     "@google/clasp": "^2.4.1",
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-node-resolve": "^13.3.0",
+    "@types/google-apps-script": "^1.0.47",
+    "eslint-plugin-googleappsscript": "^1.0.4",
+    "eslint-plugin-jest": "^26.4.6",
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^28.1.0",
     "rollup-plugin-strip-exports": "^2.0.7"

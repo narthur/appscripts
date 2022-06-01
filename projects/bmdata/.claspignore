@@ -1,0 +1,11 @@
+# ignore all files…
+**/**
+
+# except
+!build/*
+!appsscript.json
+!*.html
+
+# ignore even valid files if in…
+.git/**
+node_modules/**

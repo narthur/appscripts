@@ -6,14 +6,17 @@ module.exports = {
     },
     extends: [
         'eslint:recommended',
+        'plugin:jest/recommended'
     ],
-    plugins: ["prettier"],
+    plugins: ["prettier", "googleappsscript"],
     rules: {
         "no-console": 1,
         "prettier/prettier": "error"
     },
     env: {
         node: true,
+        "googleappsscript/googleappsscript": true,
+        "jest/globals": true,
     },
     overrides: [
         {

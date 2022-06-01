@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('DOMContentLoaded');
+      document.getElementById('settings_form').addEventListener('submit', function(e) {
+        e.preventDefault();
+      });
+    });
+    
+    function onSubmit(formObject) {
+      google.script.run
+        .withSuccessHandler(() => alert('Data saved'))
+        .processForm(formObject);
+    }
+    
+    function sync() {
+      google.script.run
+        .withSuccessHandler(() => alert('Sync complete'))
+        .syncDatapoints();
+    }
+    
+    function alert(message) {
+      console.log(message);
+      document.getElementById('output').innerHTML += `${message}<br>`;
+    }
+  </script>
+</head>
+<body>
+<form id="settings_form" onsubmit="onSubmit(this)">
+  <h1>Settings</h1>
+  
+  <div id="output"></div>
+
+  <label>
+    User
+    <input type="text" name="user" value="<?= data['user'] ?>">
+  </label><br />
+
+  <label>
+    Token
+    <input type="text" name="token" value="<?= data['token'] ?>">
+  </label><br />
+
+  <input type="submit" name="Submit"><br />
+  <button onclick="sync()">Sync Datapoints</button>
+</form>
+</body>
+</html>
