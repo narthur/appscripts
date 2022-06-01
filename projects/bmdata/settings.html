@@ -15,10 +15,10 @@
         .processForm(formObject);
     }
     
-    function sync() {
+    function runCron() {
       google.script.run
-        .withSuccessHandler(() => alert('Sync complete'))
-        .syncDatapoints();
+        .withSuccessHandler(() => alert('Cron completed'))
+        .cron();
     }
     
     function alert(message) {
@@ -44,7 +44,7 @@
   </label><br />
 
   <input type="submit" name="Submit"><br />
-  <button onclick="sync()">Sync Datapoints</button>
+  <button onclick="runCron()">Run Cron</button>
 </form>
 </body>
 </html>

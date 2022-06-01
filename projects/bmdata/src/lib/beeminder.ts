@@ -42,3 +42,21 @@ export async function getGoal(slug: string, since: number): Promise<Goal> {
 
   return result;
 }
+
+function isUser(val: unknown): val is User {
+  return val instanceof Object && 'username' in val;
+}
+
+export async function getUser(): Promise<User> {
+  const { user, token } = getAuth();
+
+  const result: unknown = await fetchJson(
+    `${base}/${user}.json?auth_token=${token}`
+  );
+
+  if (!isUser(result)) {
+    throw new Error('Expected user');
+  }
+
+  return result;
+}

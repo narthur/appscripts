@@ -8,6 +8,7 @@ jest.mock('./lib/sheets');
 jest.mock('./lib/properties');
 jest.mock('./lib/app');
 jest.mock('./lib/beeminder');
+jest.mock('./syncUser');
 
 const mockGetDocumentProperties = getDocumentProperties as jest.Mock;
 const mockGetGoals = getGoals as jest.Mock;
