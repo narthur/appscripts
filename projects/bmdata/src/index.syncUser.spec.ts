@@ -17,6 +17,7 @@ describe('syncUser', () => {
     expect(getUser).toHaveBeenCalled();
   });
 
+  it('appends user row', async () => {
     mockGetUser.mockResolvedValue({ goals: [], urgency_load: 1 });
 
     await syncUser();
