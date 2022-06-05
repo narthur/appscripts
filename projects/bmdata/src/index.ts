@@ -5,6 +5,7 @@ import { cron as _cron } from './cron';
 import { UNIX_TO_DATE as _UNIX_TO_DATE } from './unixToDate';
 import { onOpen as _onOpen } from './onOpen';
 import { sidebar as _sidebar } from './sidebar';
+import { GOAL as _GOAL } from './goal';
 
 /**
  * @returns {Promise<void>}
@@ -62,4 +63,16 @@ function cron(): Promise<void> {
  */
 function UNIX_TO_DATE(input: unknown): ValueOrArray<Date | ''> {
   return _UNIX_TO_DATE(input);
+}
+
+/**
+ * Returns a goal's datapoints
+ *
+ * @param {string} slug - Goal slug
+ * @param {number} days - Number of days to fetch
+ * @returns {Promise<unknown[][]>} - Datapoints
+ * @customfunction
+ */
+function GOAL(slug: string, days: number): Promise<unknown[][]> {
+  return _GOAL(slug, days);
 }
