@@ -1,5 +1,1 @@
-type DataRow = [Date, ...(number | '')[]];
-type AssetRow = DataRow;
-type LiabilityRow = DataRow;
-type EmptyRow = ''[];
-type NetWorthRow = [Date, number, number, number, number];
+type ValueOrArray<T> = T | ValueOrArray<T>[];

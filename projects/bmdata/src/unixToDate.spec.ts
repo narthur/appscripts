@@ -1,4 +1,4 @@
-import { UNIX_TO_DATE } from './index';
+import { UNIX_TO_DATE } from './unixToDate';
 
 describe('TO_DATE', () => {
   it('handles number', () => {

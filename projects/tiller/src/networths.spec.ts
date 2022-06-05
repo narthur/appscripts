@@ -1,4 +1,4 @@
-import { NETWORTHS } from './index';
+import { NETWORTHS } from './networths';
 import { HEADER } from './constants';
 
 function assertNetWorths({

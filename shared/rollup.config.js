@@ -1,21 +1,8 @@
 import { babel } from '@rollup/plugin-babel';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
-import stripExports from 'rollup-plugin-strip-exports';
+import commonjs from '@rollup/plugin-commonjs';
 
 const extensions = ['.ts', '.js'];
-
-const preventThreeShakingPlugin = () => {
-  return {
-    name: 'no-threeshaking',
-    resolveId(id, importer) {
-      if (!importer) {
-        // let's not theeshake entry points, as we're not exporting anything in Apps Script files
-        return { id, moduleSideEffects: 'no-treeshake' };
-      }
-      return null;
-    }
-  };
-};
 
 export default {
   input: ['./src/index.ts'],
@@ -23,12 +10,10 @@ export default {
     dir: 'build',
     format: 'esm'
   },
+  treeshake: false,
   plugins: [
-    preventThreeShakingPlugin(),
-    nodeResolve({
-      extensions
-    }),
     babel({ extensions, babelHelpers: 'runtime' }),
-    stripExports()
+    commonjs({ extensions }),
+    nodeResolve({ extensions })
   ]
 };

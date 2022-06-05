@@ -1,4 +1,4 @@
-import { syncDatapoints } from './index';
+import { syncDatapoints } from './syncDatapoints';
 import { appendRow, getSheetData } from './lib/sheets';
 import { getGoal, getGoals } from './lib/beeminder';
 

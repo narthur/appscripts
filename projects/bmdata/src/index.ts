@@ -1,69 +1,65 @@
 import { syncDatapoints as _syncDatapoints } from './syncDatapoints';
-import { addMenuItem, showSidebar } from './lib/sheets';
-import {
-  getDocumentProperties,
-  updateDocumentProperties
-} from './lib/properties';
-import { createTimeDrivenTrigger } from './lib/app';
+import { updateDocumentProperties } from './lib/properties';
 import { syncUser as _syncUser } from './syncUser';
+import { cron as _cron } from './cron';
+import { UNIX_TO_DATE as _UNIX_TO_DATE } from './unixToDate';
+import { onOpen as _onOpen } from './onOpen';
+import { sidebar as _sidebar } from './sidebar';
 
-export function syncDatapoints(
-  ...p: Parameters<typeof _syncDatapoints>
-): ReturnType<typeof _syncDatapoints> {
-  return _syncDatapoints(...p);
+/**
+ * @returns {Promise<void>}
+ */
+function syncDatapoints(): Promise<void> {
+  return _syncDatapoints();
 }
 
-export function syncUser(
-  ...p: Parameters<typeof _syncUser>
-): ReturnType<typeof _syncUser> {
-  return _syncUser(...p);
+/**
+ *
+ * @returns {Promise<void>}
+ */
+function syncUser(): Promise<void> {
+  return _syncUser();
 }
 
-export function onOpen(): void {
-  try {
-    addMenuItem('Settings', 'sidebar');
-    createTimeDrivenTrigger('cron', 1);
-  } catch (e) {
-    // eslint-disable-next-line no-console
-    console.error(e as Error);
-  }
+/**
+ * @returns {void}
+ */
+function onOpen(): void {
+  return _onOpen();
 }
 
-export function sidebar(): void {
-  const data = getDocumentProperties();
-  showSidebar('Settings', 'settings', data);
+/**
+ * @returns {void}
+ */
+function sidebar(): void {
+  return _sidebar();
 }
 
-export function processForm(data: { user: string; token: string }): void {
+/**
+ * Saves the settings to the document properties.
+ *
+ * @param {{user: string, token: string}} data - user and token
+ * @param {string} data.user - Beeminder username
+ * @param {string} data.token - API auth token
+ */
+function processForm(data: { user: string; token: string }): void {
   updateDocumentProperties(data);
 }
 
-export function cron(): Promise<unknown> {
-  return Promise.all([syncUser(), syncDatapoints()]);
+/**
+ * @returns {Promise<void>}
+ */
+function cron(): Promise<void> {
+  return _cron();
 }
 
-type ValueOrArray<T> = T | ValueOrArray<T>[];
-
-export function UNIX_TO_DATE(input: unknown): ValueOrArray<Date | ''> {
-  if (Array.isArray(input)) {
-    return input.map(UNIX_TO_DATE);
-  }
-
-  if (typeof input === 'number') {
-    return new Date(input * 1000);
-  }
-
-  if (input === '') return '';
-
-  if (typeof input === 'string') {
-    const num = parseInt(input);
-
-    if (isNaN(num)) {
-      return new Date(input);
-    }
-
-    return new Date(num * 1000);
-  }
-
-  throw new Error(`Cannot convert to Date`);
+/**
+ * Converts a unix timestamp to a date object
+ *
+ * @param {number} input - Unix timestamp
+ * @returns {Date} - Date
+ * @customfunction
+ */
+function UNIX_TO_DATE(input: unknown): ValueOrArray<Date | ''> {
+  return _UNIX_TO_DATE(input);
 }

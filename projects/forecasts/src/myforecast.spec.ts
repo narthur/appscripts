@@ -1,4 +1,4 @@
-import { MYFORECAST } from './index';
+import { MYFORECAST } from './myforecast';
 
 describe('MYFORECAST', () => {
   it('forecasts', () => {

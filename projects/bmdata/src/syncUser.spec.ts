@@ -1,4 +1,4 @@
-import { cron, syncUser } from './index';
+import { syncUser } from './syncUser';
 import { getUser } from './lib/beeminder';
 import { appendRow } from './lib/sheets';
 
@@ -23,13 +23,5 @@ describe('syncUser', () => {
     await syncUser();
 
     expect(appendRow).toHaveBeenCalledWith('user', [expect.any(Number), 0, 1]);
-  });
-
-  it('syncs user on cron', async () => {
-    mockGetUser.mockResolvedValue({ goals: [], urgency_load: 1 });
-
-    await cron();
-
-    expect(getUser).toHaveBeenCalled();
   });
 });

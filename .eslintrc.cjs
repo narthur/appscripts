@@ -6,12 +6,15 @@ module.exports = {
     },
     extends: [
         'eslint:recommended',
-        'plugin:jest/recommended'
+        'plugin:jest/recommended',
+        
     ],
     plugins: ["prettier", "googleappsscript"],
     rules: {
-        "no-console": 1,
-        "prettier/prettier": "error"
+        "no-console": "error",
+        "prettier/prettier": "error",
+        "complexity": "error"
+        
     },
     env: {
         node: true,
@@ -44,6 +47,17 @@ module.exports = {
                 }],
                 "@typescript-eslint/no-unused-vars": 2,
             }
-        }
+        },
+        {
+            files: ['projects/*/src/index.ts'],
+            plugins: ["jsdoc"],
+            extends: ["plugin:jsdoc/recommended"],
+            rules: {
+                "jsdoc/check-tag-names": ["error", {
+                    "definedTags": ["customfunction"]
+                }],
+                "@typescript-eslint/no-unused-vars": "off",
+            }
+        },
     ]
 };

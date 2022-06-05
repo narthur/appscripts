@@ -1,4 +1,4 @@
-import { LAST } from './index';
+import { LAST } from './last';
 
 describe('Tiller LAST', () => {
   it('returns last', () => {

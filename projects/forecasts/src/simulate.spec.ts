@@ -1,4 +1,4 @@
-import { SIMULATE } from './index';
+import { SIMULATE } from './simulate';
 
 describe('SIMULATE', () => {
   it('simulates', () => {
