@@ -47,13 +47,15 @@ function SIMULATE(
  * @param {[string, number][]} targets - array of target values
  * @param {number[][]} history - array of historical monthly net worth deltas
  * @param {Date} startDate - start date
+ * @param {number} startBalance - starting net worth
  * @returns {import("../types").Timelines} - array of timelines
  * @customfunction
  */
 function TIMELINES(
   targets: [string, number][],
   history: unknown[][],
-  startDate: Date
+  startDate: Date,
+  startBalance: number
 ): Timelines {
-  return _TIMELINES(targets, history, startDate);
+  return _TIMELINES(targets, history, startDate, startBalance);
 }

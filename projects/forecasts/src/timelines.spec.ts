@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 describe('TIMELINES', () => {
   it('returns target headers', () => {
     const targets: [string, number][] = [['target', 1]];
-    const result = TIMELINES(targets, [], dayjs('2020-01-01').toDate());
+    const result = TIMELINES(targets, [], dayjs('2020-01-01').toDate(), 0);
 
     expect(result[0][1]).toEqual('target');
   });
@@ -12,14 +12,14 @@ describe('TIMELINES', () => {
   it('returns dates', () => {
     const startDate = dayjs('2020-01-01').toDate();
     const targets: [string, number][] = [['target', 1]];
-    const result = TIMELINES(targets, [], startDate);
+    const result = TIMELINES(targets, [], startDate, 0);
 
     expect(result[1][0]).toEqual(startDate);
   });
 
   it('returns three-step timeline', () => {
     const targets: [string, number][] = [['target', 1]];
-    const result = TIMELINES(targets, [[1]], dayjs('2020-01-01').toDate());
+    const result = TIMELINES(targets, [[1]], dayjs('2020-01-01').toDate(), 0);
 
     expect(result).toEqual(
       expect.arrayContaining([
@@ -33,7 +33,7 @@ describe('TIMELINES', () => {
 
   it('returns four-step timeline', () => {
     const targets: [string, number][] = [['target', 2]];
-    const result = TIMELINES(targets, [[1]], dayjs('2020-01-01').toDate());
+    const result = TIMELINES(targets, [[1]], dayjs('2020-01-01').toDate(), 0);
 
     expect(result).toEqual(
       expect.arrayContaining([
@@ -48,7 +48,7 @@ describe('TIMELINES', () => {
 
   it('handles impossible target', () => {
     const targets: [string, number][] = [['target', 1]];
-    const result = TIMELINES(targets, [[0]], dayjs('2020-01-01').toDate());
+    const result = TIMELINES(targets, [[0]], dayjs('2020-01-01').toDate(), 0);
 
     expect(result).not.toEqual(
       expect.arrayContaining([[expect.anything(), 1]])
@@ -57,7 +57,12 @@ describe('TIMELINES', () => {
 
   it('returns probabilities in order', () => {
     const targets: [string, number][] = [['target', 1]];
-    const result = TIMELINES(targets, [[1], [0]], dayjs('2020-01-01').toDate());
+    const result = TIMELINES(
+      targets,
+      [[1], [0]],
+      dayjs('2020-01-01').toDate(),
+      0
+    );
 
     const probabilities = result.slice(1).map((r) => r[1]);
     const sortedProbabilities = [...probabilities].sort();
@@ -70,7 +75,7 @@ describe('TIMELINES', () => {
       ['target1', 1],
       ['target2', 2]
     ];
-    const result = TIMELINES(targets, [[1]], dayjs('2020-01-01').toDate());
+    const result = TIMELINES(targets, [[1]], dayjs('2020-01-01').toDate(), 0);
 
     expect(result).toEqual(
       expect.arrayContaining([
@@ -80,5 +85,31 @@ describe('TIMELINES', () => {
         [dayjs('2020-03-01').toDate(), 1, 1]
       ])
     );
+  });
+
+  it('returns 10 years of data', () => {
+    const targets: [string, number][] = [['target', 1]];
+    const result = TIMELINES(targets, [[1]], dayjs('2020-01-01').toDate(), 0);
+
+    expect(result).toHaveLength(12 * 10 + 1);
+  });
+
+  it('ignores empty history entries', () => {
+    const targets: [string, number][] = [['target', 1]];
+    const result = TIMELINES(
+      targets,
+      [[1], [''], ['']],
+      dayjs('2020-01-01').toDate(),
+      0
+    );
+
+    expect(result[result.length - 1][1]).toEqual(1);
+  });
+
+  it('accepts starting balance', () => {
+    const targets: [string, number][] = [['target', 1]];
+    const result = TIMELINES(targets, [[0]], dayjs('2020-01-01').toDate(), 1);
+
+    expect(result[result.length - 1][1]).toEqual(1);
   });
 });

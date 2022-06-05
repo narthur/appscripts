@@ -14,7 +14,6 @@ module.exports = {
         "no-console": "error",
         "prettier/prettier": "error",
         "complexity": "error"
-        
     },
     env: {
         node: true,
