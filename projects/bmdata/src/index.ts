@@ -1,7 +1,7 @@
 import { syncDatapoints as _syncDatapoints } from './syncDatapoints';
-import { updateDocumentProperties } from './lib/properties';
 import { syncUser as _syncUser } from './syncUser';
 import { cron as _cron } from './cron';
+import { processForm as _processForm } from './processForm';
 import { UNIX_TO_DATE as _UNIX_TO_DATE } from './unixToDate';
 import { onOpen as _onOpen } from './onOpen';
 import { sidebar as _sidebar } from './sidebar';
@@ -44,7 +44,7 @@ function sidebar(): void {
  * @param {string} data.token - API auth token
  */
 function processForm(data: { user: string; token: string }): void {
-  updateDocumentProperties(data);
+  _processForm(data);
 }
 
 /**

@@ -12,3 +12,5 @@ type User = {
   urgency_load: number;
   goals: Goal[];
 };
+
+type BeeminderAuth = { user: string; token: string };
