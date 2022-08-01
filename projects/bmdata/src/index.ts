@@ -33,6 +33,7 @@ function onOpen(): void {
  * @returns {void}
  */
 function sidebar(): void {
+  console.log('sidebar');
   return _sidebar();
 }
 

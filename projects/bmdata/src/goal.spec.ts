@@ -1,13 +1,13 @@
 import { GOAL } from './goal';
 import { getGoal } from './lib/beeminder';
 
-jest.mock('./lib/beeminder');
+vi.mock('./lib/beeminder');
 
 const mockNow = new Date('2020-01-01T00:00:00.000Z');
 
-jest.useFakeTimers().setSystemTime(mockNow);
+vi.useFakeTimers().setSystemTime(mockNow);
 
-const mockGetGoal = getGoal as jest.Mock;
+const mockGetGoal = getGoal as vi.Mock;
 
 describe('GOAL', () => {
   it('uses args', async () => {

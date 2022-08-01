@@ -1,5 +1,3 @@
-type HtmlOutput = ReturnType<typeof HtmlService['createHtmlOutput']>;
-
 export default function renderSidebar(
   name: string,
   page: string,

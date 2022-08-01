@@ -4,9 +4,9 @@ import {
 } from './lib/properties';
 import { processForm } from './processForm';
 
-jest.mock('./lib/properties');
+vi.mock('./lib/properties');
 
-const mockGetDocumentProperties = getDocumentProperties as jest.Mock;
+const mockGetDocumentProperties = getDocumentProperties as vi.Mock;
 
 describe('processForm', () => {
   it('updates document properties', () => {

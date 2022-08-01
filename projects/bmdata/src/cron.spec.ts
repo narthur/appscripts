@@ -1,11 +1,11 @@
 import { cron } from './cron';
 import { getGoals, getUser } from './lib/beeminder';
 
-jest.mock('./lib/beeminder');
-jest.mock('./lib/sheets');
+vi.mock('./lib/beeminder');
+vi.mock('./lib/sheets');
 
-const mockGetUser = getUser as jest.Mock;
-const mockGetGoals = getGoals as jest.Mock;
+const mockGetUser = getUser as vi.Mock;
+const mockGetGoals = getGoals as vi.Mock;
 
 describe('cron', () => {
   beforeEach(() => {

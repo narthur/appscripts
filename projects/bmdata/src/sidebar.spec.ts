@@ -1,14 +1,19 @@
-import { sidebar } from './sidebar';
 import { showSidebar } from './lib/sheets';
 import { getDocumentProperties } from './lib/properties';
+import { Mock } from 'vitest';
+import { sidebar } from './sidebar';
+import mockGas from './lib/test/mockGas';
+import { resolve } from 'path';
 
-jest.mock('./lib/sheets');
-jest.mock('./lib/properties');
-jest.mock('./lib/app');
-jest.mock('./lib/beeminder');
-jest.mock('./syncUser');
+vi.mock('./lib/sheets');
+vi.mock('./lib/properties');
+vi.mock('./lib/app');
+vi.mock('./lib/beeminder');
+vi.mock('./syncUser');
 
-const mockGetDocumentProperties = getDocumentProperties as jest.Mock;
+const gas = mockGas(resolve(__dirname, '../build'));
+
+const mockGetDocumentProperties = getDocumentProperties as Mock;
 
 describe('sidebar', () => {
   it('shows sidebar', () => {
@@ -23,5 +28,13 @@ describe('sidebar', () => {
       user: 'the_user',
       token: 'the_token'
     });
+  });
+
+  it('renders sidebar', () => {
+    gas.lib.sidebar();
+
+    expect(gas.mocks.HtmlService.createTemplateFromFile).toBeCalledWith(
+      'settings'
+    );
   });
 });

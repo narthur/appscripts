@@ -2,11 +2,11 @@ import { getGoals } from './beeminder';
 import { getDocumentProperties } from './properties';
 import fetchJson from './fetchJson';
 
-jest.mock('./properties');
-jest.mock('./fetchJson');
+vi.mock('./properties');
+vi.mock('./fetchJson');
 
-const mockGetDocumentProperties = getDocumentProperties as jest.Mock;
-const mockFetchJson = fetchJson as jest.Mock;
+const mockGetDocumentProperties = getDocumentProperties as vi.Mock;
+const mockFetchJson = fetchJson as vi.Mock;
 
 describe('beeminder', () => {
   it('uses saved user and token', async () => {

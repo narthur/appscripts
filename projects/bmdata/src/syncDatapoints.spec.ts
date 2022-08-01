@@ -2,14 +2,14 @@ import { syncDatapoints } from './syncDatapoints';
 import { appendRow, getSheetData } from './lib/sheets';
 import { getGoal, getGoals } from './lib/beeminder';
 
-jest.mock('./lib/fetchJson');
-jest.mock('./lib/sheets');
-jest.mock('./lib/beeminder');
-jest.mock('./lib/properties');
+vi.mock('./lib/fetchJson');
+vi.mock('./lib/sheets');
+vi.mock('./lib/beeminder');
+vi.mock('./lib/properties');
 
-const mockGetSheetData = getSheetData as jest.Mock;
-const mockGetGoals = getGoals as jest.Mock;
-const mockGetGoal = getGoal as jest.Mock;
+const mockGetSheetData = getSheetData as vi.Mock;
+const mockGetGoals = getGoals as vi.Mock;
+const mockGetGoal = getGoal as vi.Mock;
 
 describe('syncDatapoints', () => {
   it('runs', async () => {

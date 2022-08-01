@@ -2,11 +2,11 @@ import { syncUser } from './syncUser';
 import { getUser } from './lib/beeminder';
 import { appendRow } from './lib/sheets';
 
-jest.mock('./lib/beeminder');
-jest.mock('./lib/sheets');
-jest.mock('./syncDatapoints');
+vi.mock('./lib/beeminder');
+vi.mock('./lib/sheets');
+vi.mock('./syncDatapoints');
 
-const mockGetUser = getUser as jest.Mock;
+const mockGetUser = getUser as vi.Mock;
 
 describe('syncUser', () => {
   it('runs', async () => {
