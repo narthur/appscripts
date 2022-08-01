@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": ">=16.15.0"
+  },
   "scripts": {
     "build:tiller": "cd projects/tiller && npx rollup --config",
     "deploy:tiller": "cd projects/tiller && npx clasp push -f",
@@ -6,11 +9,12 @@
     "deploy:forecasts": "cd projects/forecasts && npx clasp push -f",
     "build:bmdata": "cd projects/bmdata && npx rollup --config",
     "deploy:bmdata": "cd projects/bmdata && npx clasp push -f",
-    "build": "npm run build:tiller && npm run build:forecasts && npm run build:bmdata",
-    "deploy": "npm run deploy:tiller && npm run deploy:forecasts && npm run deploy:bmdata",
-    "ship": "npm run build && npm run deploy",
+    "build": "pnpm run build:tiller && pnpm run build:forecasts && pnpm run build:bmdata",
+    "deploy": "pnpm run deploy:tiller && pnpm run deploy:forecasts && pnpm run deploy:bmdata",
+    "ship": "pnpm run build && pnpm run deploy",
     "test": "npx jest --watch",
-    "lint": "eslint"
+    "lint": "eslint",
+    "preinstall": "npx only-allow pnpm"
   },
   "dependencies": {
     "@babel/plugin-transform-runtime": "^7.18.2",
@@ -22,7 +26,6 @@
     "@rollup/plugin-commonjs": "^22.0.0",
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@rollup/plugin-strip": "^2.1.0",
-    "@stdlib/stdlib": "^0.0.96",
     "@types/google-apps-script": "^1.0.47",
     "dayjs": "^1.11.2",
     "eslint-plugin-googleappsscript": "^1.0.4",

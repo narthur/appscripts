@@ -3,37 +3,47 @@ on: [push]
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ "16.15.0" ]
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/cache@v2
+      - uses: pnpm/action-setup@v2.2.2
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          version: 7
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install
       - name: Run tests
-        run: npx jest
+        run: pnpm exec jest
   deploy:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ "16.15.0" ]
     if: success() && github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/cache@v2
+      - uses: pnpm/action-setup@v2.2.2
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          version: 7
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install
       - name: Authenticate Clasp
         run: 'echo "$CLASPRC" > ~/.clasprc.json'
         shell: bash
         env:
           CLASPRC: ${{ secrets.CLASPRC }}
       - name: Build
-        run: npm run build
+        run: pnpm run build
       - name: Deploy
-        run: npm run deploy
+        run: pnpm run deploy
