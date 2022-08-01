@@ -1,4 +1,4 @@
-import { updateDocumentProperties } from './properties';
+import renderSidebar from './renderSidebar';
 
 export function getSheetData(name: string): unknown[][] {
   const sheet = SpreadsheetApp.getActive().getSheetByName(name);
@@ -31,9 +31,6 @@ export function showSidebar(
   page: string,
   data: Record<string, string>
 ): void {
-  const template = HtmlService.createTemplateFromFile(page);
-  template.data = data;
-  const htmlOutput = template.evaluate();
-  htmlOutput.setTitle(name);
+  const htmlOutput = renderSidebar(name, page, data);
   SpreadsheetApp.getUi().showSidebar(htmlOutput);
 }
