@@ -2,7 +2,7 @@ name: CI
 on:
   push:
   schedule:
-    cron: '0 0 * * 0' # every Sunday at midnight to avoid token expiry
+    - cron: '0 0 * * 0' # every Sunday at midnight to avoid token expiry
 jobs:
   test:
     runs-on: ubuntu-latest
